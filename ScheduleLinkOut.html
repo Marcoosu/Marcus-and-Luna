@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luna &amp; Marcus — Wedding Day Details</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#232a2f;
+    --ivory:#f6f2ea;
+    --gold:#b3893f;
+    --sage:#6f7d63;
+    --line: rgba(35,42,47,0.18);
+    --max: 640px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+
+  /* HERO */
+  .hero{
+    padding:88px 28px 56px;
+    text-align:center;
+    position:relative;
+  }
+  .hero .eyebrow{
+    font-size:12px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--sage);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    font-size:clamp(40px, 9vw, 62px);
+    line-height:1.05;
+    margin:0 0 14px;
+    letter-spacing:0.01em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold);
+    font-weight:400;
+  }
+  .hero .date{
+    font-size:15px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:0.75;
+  }
+
+  .flourish{
+    width:180px;
+    margin:32px auto 0;
+    opacity:0.55;
+  }
+
+  /* NAV */
+  nav{
+    position:sticky;
+    top:0;
+    background:rgba(246,242,234,0.92);
+    backdrop-filter: blur(6px);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    z-index:10;
+  }
+  nav .wrap{
+    display:flex;
+    justify-content:center;
+    gap:36px;
+    padding:16px 28px;
+  }
+  nav a{
+    color:var(--ink);
+    text-decoration:none;
+    font-size:13px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    opacity:0.7;
+    transition:opacity 0.2s ease;
+  }
+  nav a:hover, nav a:focus-visible{ opacity:1; color:var(--gold); }
+
+  /* SECTIONS */
+  section{
+    padding:72px 28px;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  .section-head{
+    text-align:center;
+    margin-bottom:48px;
+  }
+  .section-head .num{
+    display:block;
+    font-size:12px;
+    letter-spacing:0.28em;
+    color:var(--sage);
+    margin-bottom:10px;
+  }
+  .section-head h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:clamp(30px, 6vw, 42px);
+    margin:0;
+  }
+
+  /* SCHEDULE */
+  .timeline{
+    max-width:480px;
+    margin:0 auto;
+  }
+  .t-item{
+    display:grid;
+    grid-template-columns:100px 1fr;
+    gap:20px;
+    padding:20px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .t-item:last-child{ border-bottom:none; }
+  .t-time{
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px;
+    font-weight:600;
+    color:var(--gold);
+    text-align:right;
+  }
+  .t-what strong{
+    display:block;
+    font-family:'Jost', sans-serif;
+    font-weight:500;
+    font-size:16px;
+    letter-spacing:0.02em;
+    margin-bottom:3px;
+  }
+  .t-what span{
+    font-size:14px;
+    opacity:0.65;
+  }
+
+  /* MENU */
+  .course{
+    max-width:480px;
+    margin:0 auto 40px;
+  }
+  .course:last-child{ margin-bottom:0; }
+  .course-title{
+    font-size:12px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--sage);
+    margin-bottom:16px;
+    text-align:center;
+  }
+  .dish{
+    text-align:center;
+    padding:14px 0;
+  }
+  .dish-name{
+    font-family:'Cormorant Garamond', serif;
+    font-size:21px;
+    font-weight:500;
+    margin-bottom:4px;
+  }
+  .dish-desc{
+    font-size:14px;
+    opacity:0.65;
+    max-width:380px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+  .dietary-note{
+    text-align:center;
+    font-size:13px;
+    opacity:0.7;
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    max-width:420px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .dietary-note a{ color:var(--gold); }
+
+  /* DRINKS */
+  .drink-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:32px;
+    max-width:420px;
+    margin:0 auto;
+  }
+  .drink-cat{
+    text-align:center;
+  }
+  .drink-cat h3{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:19px;
+    margin:0 0 10px;
+    color:var(--sage);
+  }
+  .drink-cat ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-size:14px;
+    line-height:2;
+    opacity:0.85;
+  }
+  .drink-note{
+    text-align:center;
+    font-size:13px;
+    opacity:0.65;
+    margin-top:36px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    max-width:420px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  footer{
+    text-align:center;
+    padding:48px 28px 64px;
+    font-size:13px;
+    opacity:0.55;
+    letter-spacing:0.04em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Luna <em>&amp;</em> Marcus</h1>
+    <div class="date">Saturday, 12 September 2026 · Kalinya Estate</div>
+    <svg class="flourish" viewBox="0 0 200 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 12 H80" stroke="#b3893f" stroke-width="1"/>
+      <circle cx="100" cy="12" r="4" stroke="#b3893f" stroke-width="1" fill="none"/>
+      <path d="M120 12 H200" stroke="#b3893f" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <nav>
+    <div class="wrap">
+      <a href="#schedule">Schedule</a>
+      <a href="#menu">Menu</a>
+      <a href="#drinks">Drinks</a>
+    </div>
+  </nav>
+
+  <!-- SCHEDULE -->
+  <section id="schedule">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">The Day</span>
+        <h2>Schedule</h2>
+      </div>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-time">3:00</div>
+          <div class="t-what"><strong>Guest arrival</strong><span>Doors open, please be seated by 3:20</span></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">3:30</div>
+          <div class="t-what"><strong>Ceremony</strong><span>The Orchard Lawn</span></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">4:15</div>
+          <div class="t-what"><strong>Drinks &amp; canapés</strong><span>Terrace</span></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">5:30</div>
+          <div class="t-what"><strong>Wedding breakfast</strong><span>The Barn</span></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">7:00</div>
+          <div class="t-what"><strong>Speeches</strong><span>The Barn</span></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">8:00</div>
+          <div class="t-what"><strong>First dance &amp; party</strong><span>Music until midnight</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Menu</h2>
+      </div>
+
+      <div class="course">
+        <div class="course-title">Canapé</div>
+        <div class="dish">
+          <div class="dish-name">Canapé option one</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Canapé option two</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="course-title">Cake</div>
+        <div class="dish">
+          <div class="dish-name">Cake flavour one</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Cake flavour two</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="course-title">Main</div>
+        <div class="dish">
+          <div class="dish-name">Main option one</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Main option two</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Main option three</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="course-title">Dessert</div>
+        <div class="dish">
+          <div class="dish-name">Dessert option one</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Dessert option two</div>
+          <div class="dish-desc">Short description of the dish</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRINKS -->
+  <section id="drinks">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">Raise a Glass</span>
+        <h2>Drinks</h2>
+      </div>
+      <div class="drink-grid">
+        <div class="drink-cat">
+          <h3>Wine</h3>
+          <ul>
+            <li>Wine option one</li>
+            <li>Wine option two</li>
+            <li>Wine option three</li>
+          </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>Beer</h3>
+          <ul>
+            <li>Beer option one</li>
+            <li>Beer option two</li>
+            <li>Cider option</li>
+          </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>Soft</h3>
+          <ul>
+            <li>Soft drink one</li>
+            <li>Soft drink two</li>
+            <li>Water</li>
+          </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>Spirits</h3>
+          <ul>
+            <li>Spirit option one</li>
+            <li>Spirit option two</li>
+            <li>Spirit option three</li>
+          </ul>
+        </div>
+      </div>
+      <div class="drink-note">Spirits are served during the reception only.</div>
+    </div>
+  </section>
+
+
+</body>
+</html>
