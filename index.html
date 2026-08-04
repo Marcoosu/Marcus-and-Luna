@@ -94,13 +94,14 @@
     transition:opacity 0.2s ease;
   }
   nav a:hover, nav a:focus-visible{ opacity:1; color:var(--gold); }
+  nav a.active{ opacity:1; color:var(--gold); }
 
   /* SECTIONS */
   section{
     padding:72px 28px;
-    border-bottom:1px solid var(--line);
+    border-bottom:none;
   }
-  section:last-of-type{ border-bottom:none; }
+  section:not(.active){ display:none; }
 
   .section-head{
     text-align:center;
@@ -178,6 +179,15 @@
     font-weight:500;
     margin-bottom:4px;
   }
+  .tag{
+    font-family:'Jost', sans-serif;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    color:var(--sage);
+    vertical-align:middle;
+    margin-left:4px;
+  }
   .dish-desc{
     font-size:14px;
     opacity:0.65;
@@ -237,6 +247,36 @@
     margin-right:auto;
   }
 
+  /* GAME */
+  .game-copy{
+    max-width:440px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .game-copy p{
+    font-size:15px;
+    line-height:1.7;
+    opacity:0.8;
+    margin:0 0 18px;
+  }
+  .game-copy p:last-child{ margin-bottom:0; }
+  .photo-placeholder{
+    width:140px;
+    aspect-ratio:1;
+    margin:0 auto 24px;
+    border:1px dashed var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:12px;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--sage);
+    opacity:0.7;
+  }
+
   footer{
     text-align:center;
     padding:48px 28px 64px;
@@ -260,14 +300,15 @@
 
   <nav>
     <div class="wrap">
-      <a href="#schedule">Schedule</a>
-      <a href="#menu">Menu</a>
-      <a href="#drinks">Drinks</a>
+      <a href="#schedule" data-tab="schedule" class="active">Schedule</a>
+      <a href="#menu" data-tab="menu">Menu</a>
+      <a href="#drinks" data-tab="drinks">Drinks</a>
+      <a href="#game" data-tab="game">Cocktail Hour</a>
     </div>
   </nav>
 
   <!-- SCHEDULE -->
-  <section id="schedule">
+  <section id="schedule" class="active">
     <div class="wrap">
       <div class="section-head">
         <span class="num">The Day</span>
@@ -275,28 +316,36 @@
       </div>
       <div class="timeline">
         <div class="t-item">
-          <div class="t-time">3:00</div>
-          <div class="t-what"><strong>Guest arrival</strong><span>Doors open, please be seated by 3:20</span></div>
+          <div class="t-time">2:30</div>
+          <div class="t-what"><strong>Guest arrival</strong><span>Doors open, please be seated by 2:50</span></div>
         </div>
         <div class="t-item">
-          <div class="t-time">3:30</div>
+          <div class="t-time">3:00</div>
           <div class="t-what"><strong>Ceremony</strong><span>The Orchard Lawn</span></div>
         </div>
         <div class="t-item">
-          <div class="t-time">4:15</div>
-          <div class="t-what"><strong>Drinks &amp; canapés</strong><span>Terrace</span></div>
+          <div class="t-time">3:30</div>
+          <div class="t-what"><strong>Cake cutting</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">4:00</div>
+          <div class="t-what"><strong>Cocktail hour &amp; Group photos</strong><span>Check WithJoy for your scheduled photo time, or wait for the MC to call you out</span></div>
         </div>
         <div class="t-item">
           <div class="t-time">5:30</div>
-          <div class="t-what"><strong>Wedding breakfast</strong><span>The Barn</span></div>
+          <div class="t-what"><strong>Guests seated for reception</strong></div>
         </div>
         <div class="t-item">
-          <div class="t-time">7:00</div>
-          <div class="t-what"><strong>Speeches</strong><span>The Barn</span></div>
+          <div class="t-time">6:00</div>
+          <div class="t-what"><strong>First dance</strong></div>
         </div>
         <div class="t-item">
-          <div class="t-time">8:00</div>
-          <div class="t-what"><strong>First dance &amp; party</strong><span>Music until midnight</span></div>
+          <div class="t-time">7:15</div>
+          <div class="t-what"><strong>Speeches</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">10:15</div>
+          <div class="t-what"><strong>Last drinks</strong></div>
         </div>
       </div>
     </div>
@@ -310,54 +359,72 @@
       </div>
 
       <div class="course">
-        <div class="course-title">Canapé</div>
+        <div class="course-title">Cake</div>
         <div class="dish">
-          <div class="dish-name">Canapé option one</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">White Chocolate Mud</div>
+          <div class="dish-desc">Lemon ganache</div>
         </div>
         <div class="dish">
-          <div class="dish-name">Canapé option two</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">Strawberry Buttercake</div>
+          <div class="dish-desc">White chocolate ganache</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Red Velvet</div>
+          <div class="dish-desc">Espresso buttercream</div>
         </div>
       </div>
 
       <div class="course">
-        <div class="course-title">Cake</div>
+        <div class="course-title">Canapé</div>
         <div class="dish">
-          <div class="dish-name">Cake flavour one</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">Roast Beef &amp; Yorkshire Pudding</div>
+          <div class="dish-desc">Horseradish mayo, spinach, onion and tomato chutney</div>
         </div>
         <div class="dish">
-          <div class="dish-name">Cake flavour two</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">Salt &amp; Pepper Squid <span class="tag">GF, LF</span></div>
+          <div class="dish-desc">Garlic and lemon aioli</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Prawn &amp; Chorizo Skewer <span class="tag">GF, LF</span></div>
+          <div class="dish-desc">Peri-peri remoulade</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Panko-Crumbed Mushrooms <span class="tag">V</span></div>
+          <div class="dish-desc">Stuffed with creamy brie and pine nuts</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Wagyu Beef Burgers</div>
+          <div class="dish-desc">Bourbon caramelised onions, cheddar cheese, baby spinach and tomato relish</div>
         </div>
       </div>
 
       <div class="course">
         <div class="course-title">Main</div>
         <div class="dish">
-          <div class="dish-name">Main option one</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">Eye Fillet of Beef <span class="tag">GF, LF</span></div>
+          <div class="dish-desc">Paris mash, wild mushroom fricassee and rich merlot jus</div>
         </div>
         <div class="dish">
-          <div class="dish-name">Main option two</div>
-          <div class="dish-desc">Short description of the dish</div>
-        </div>
-        <div class="dish">
-          <div class="dish-name">Main option three</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">Barramundi Fillet <span class="tag">GF</span></div>
+          <div class="dish-desc">Thyme and rosemary potato with lemon and herb gremolata</div>
         </div>
       </div>
 
       <div class="course">
-        <div class="course-title">Dessert</div>
+        <div class="course-title">Petit Fours</div>
         <div class="dish">
-          <div class="dish-name">Dessert option one</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">Mini Sticky Date Shots</div>
+          <div class="dish-desc">Butterscotch sauce</div>
         </div>
         <div class="dish">
-          <div class="dish-name">Dessert option two</div>
-          <div class="dish-desc">Short description of the dish</div>
+          <div class="dish-name">Mini Espresso Panna Cotta <span class="tag">GF</span></div>
+          <div class="dish-desc">Amaretto crème</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Mini White Chocolate &amp; Passionfruit Cheesecake</div>
+        </div>
+        <div class="dish">
+          <div class="dish-name">Mini Baileys Chocolate Mousse Shot <span class="tag">GF</span></div>
         </div>
       </div>
     </div>
@@ -408,6 +475,44 @@
     </div>
   </section>
 
+  <!-- GAME -->
+  <section id="game">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">Hide &amp; Seek, Sort Of</span>
+        <h2>Cocktail Hour</h2>
+      </div>
+      <div class="game-copy">
+        <p>We've hidden 5 little white Mecca Chameleon characters around the estate. Keep your eyes peeled while you're enjoying drinks and canapés. Here's what you're looking for:</p>
+        <div class="photo-placeholder">Photo of the chameleon</div>
+        <p>Found one? Take a photo with it, then track down this person to show them and claim your spot:</p>
+        <div class="photo-placeholder">Photo of [Name]</div>
+        <p>The first ten guests to find all 5 win a small prize. Happy hunting!</p>
+      </div>
+    </div>
+  </section>
 
+
+  <script>
+    var navLinks = document.querySelectorAll('nav a[data-tab]');
+    var sections = document.querySelectorAll('section[id]');
+
+    function showTab(id, updateHash){
+      sections.forEach(function(s){ s.classList.toggle('active', s.id === id); });
+      navLinks.forEach(function(a){ a.classList.toggle('active', a.dataset.tab === id); });
+      if(updateHash){ history.replaceState(null, '', '#' + id); }
+    }
+
+    navLinks.forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        showTab(a.dataset.tab, true);
+      });
+    });
+
+    var initial = window.location.hash.replace('#', '');
+    var validIds = Array.prototype.map.call(sections, function(s){ return s.id; });
+    showTab(validIds.indexOf(initial) !== -1 ? initial : 'schedule', false);
+  </script>
 </body>
 </html>
