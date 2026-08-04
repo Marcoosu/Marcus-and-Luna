@@ -1,11 +1,17 @@
 name: Scheduled Pages Publish
 
-# Reveals the full site (main) at 4pm Sydney time and suppresses the
-# Cocktail Hour tab (cocktail-hour-suppressed) at midnight, every day.
+# Full site (main) is live from 4pm to midnight Sydney time; the
+# Cocktail Hour tab is suppressed (cocktail-hour-suppressed) from
+# midnight to 4pm.
 #
-# Runs every 15 minutes and checks the actual Sydney wall-clock time at
-# runtime, rather than pinning fixed UTC cron slots, so it stays correct
-# across the AEST/AEDT daylight-saving switch without any manual edits.
+# Runs every 15 minutes and, on every run, works out which variant
+# should currently be live and (re)deploys it - it does not try to
+# match a specific trigger moment. That means a delayed or skipped
+# cron run (GitHub's schedule can lag, especially under load) just
+# self-corrects on the next tick at most 15 minutes later, instead of
+# silently missing the whole day. It also uses the actual Sydney
+# wall-clock time at runtime rather than fixed UTC cron slots, so it
+# stays correct across the AEST/AEDT daylight-saving switch.
 #
 # Requires: repo Settings -> Pages -> Build and deployment -> Source ->
 # "GitHub Actions" (one-time, must be set manually).
@@ -16,7 +22,7 @@ on:
   workflow_dispatch:
     inputs:
       variant:
-        description: 'Force a variant to deploy now (leave blank to use the scheduled time check)'
+        description: 'Force a variant to deploy now (leave blank to use the current-time check)'
         required: false
         type: choice
         options:
@@ -34,52 +40,37 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  check-time:
-    runs-on: ubuntu-latest
-    outputs:
-      should_deploy: ${{ steps.check.outputs.should_deploy }}
-      variant: ${{ steps.check.outputs.variant }}
-    steps:
-      - id: check
-        env:
-          FORCED_VARIANT: ${{ github.event.inputs.variant }}
-        run: |
-          if [ -n "$FORCED_VARIANT" ]; then
-            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
-            echo "variant=$FORCED_VARIANT" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          hour=$(TZ=Australia/Sydney date +%-H)
-          minute=$(TZ=Australia/Sydney date +%-M)
-
-          if [ "$hour" = "16" ] && [ "$minute" -lt 15 ]; then
-            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
-            echo "variant=full" >> "$GITHUB_OUTPUT"
-          elif [ "$hour" = "0" ] && [ "$minute" -lt 15 ]; then
-            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
-            echo "variant=suppressed" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
-            echo "variant=" >> "$GITHUB_OUTPUT"
-          fi
-
   deploy:
-    needs: check-time
-    if: needs.check-time.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - id: variant
+        env:
+          FORCED_VARIANT: ${{ github.event.inputs.variant }}
+        run: |
+          if [ -n "$FORCED_VARIANT" ]; then
+            echo "variant=$FORCED_VARIANT" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          hour=$(TZ=Australia/Sydney date +%-H)
+
+          if [ "$hour" -ge 16 ]; then
+            echo "variant=full" >> "$GITHUB_OUTPUT"
+          else
+            echo "variant=suppressed" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout full version
-        if: needs.check-time.outputs.variant == 'full'
+        if: steps.variant.outputs.variant == 'full'
         uses: actions/checkout@v7
         with:
           ref: main
 
       - name: Checkout suppressed version
-        if: needs.check-time.outputs.variant == 'suppressed'
+        if: steps.variant.outputs.variant == 'suppressed'
         uses: actions/checkout@v7
         with:
           ref: cocktail-hour-suppressed
