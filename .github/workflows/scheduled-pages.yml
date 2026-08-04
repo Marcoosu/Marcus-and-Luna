@@ -15,17 +15,10 @@ name: Scheduled Pages Publish
 #
 # Requires: repo Settings -> Pages -> Build and deployment -> Source ->
 # "GitHub Actions" (one-time, must be set manually).
-#
-# The cron below is offset to :07/:22/:37/:52 rather than the round
-# marks (:00/:15/:30/:45). GitHub's scheduler is shared across every
-# repo on the platform, and jobs pinned to round marks queue behind a
-# huge spike of everyone else's cron jobs firing at the same instant -
-# GitHub's own docs warn this can delay a run well past its due time.
-# An off-beat minute avoids that pileup.
 
 on:
   schedule:
-    - cron: '7,22,37,52 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       variant:
