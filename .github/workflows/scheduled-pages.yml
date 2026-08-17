@@ -2,11 +2,13 @@ name: Scheduled Pages Publish
 
 # Full site (main) is live from 4pm to midnight Sydney time; the
 # Cocktail Hour tab is suppressed (cocktail-hour-suppressed) from
-# midnight to 4pm.
+# midnight to 4pm. The prizes-claimed variant (cocktail-hour-prizes-claimed)
+# is only ever deployed by explicitly picking it below.
 #
-# Manual trigger only (workflow_dispatch). On a run with no forced
-# variant, it works out which variant should currently be live (using
-# the actual Sydney wall-clock time at runtime) and deploys it.
+# Manual trigger only (workflow_dispatch). Pick which variant to deploy;
+# if this workflow is ever triggered without a variant (e.g. via the
+# API), it falls back to working out which variant should currently be
+# live using the actual Sydney wall-clock time at runtime.
 #
 # Requires: repo Settings -> Pages -> Build and deployment -> Source ->
 # "GitHub Actions" (one-time, must be set manually).
@@ -15,13 +17,13 @@ on:
   workflow_dispatch:
     inputs:
       variant:
-        description: 'Force a variant to deploy now (leave blank to use the current-time check)'
-        required: false
+        description: 'Variant to deploy'
+        required: true
         type: choice
         options:
-          - ''
           - full
           - suppressed
+          - prizes-claimed
 
 permissions:
   contents: read
@@ -67,6 +69,12 @@ jobs:
         uses: actions/checkout@v7
         with:
           ref: cocktail-hour-suppressed
+
+      - name: Checkout prizes-claimed version
+        if: steps.variant.outputs.variant == 'prizes-claimed'
+        uses: actions/checkout@v7
+        with:
+          ref: cocktail-hour-prizes-claimed
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
