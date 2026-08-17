@@ -4,21 +4,14 @@ name: Scheduled Pages Publish
 # Cocktail Hour tab is suppressed (cocktail-hour-suppressed) from
 # midnight to 4pm.
 #
-# Runs every 15 minutes and, on every run, works out which variant
-# should currently be live and (re)deploys it - it does not try to
-# match a specific trigger moment. That means a delayed or skipped
-# cron run (GitHub's schedule can lag, especially under load) just
-# self-corrects on the next tick at most 15 minutes later, instead of
-# silently missing the whole day. It also uses the actual Sydney
-# wall-clock time at runtime rather than fixed UTC cron slots, so it
-# stays correct across the AEST/AEDT daylight-saving switch.
+# Manual trigger only (workflow_dispatch). On a run with no forced
+# variant, it works out which variant should currently be live (using
+# the actual Sydney wall-clock time at runtime) and deploys it.
 #
 # Requires: repo Settings -> Pages -> Build and deployment -> Source ->
 # "GitHub Actions" (one-time, must be set manually).
 
 on:
-  schedule:
-    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       variant:
