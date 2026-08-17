@@ -21,8 +21,8 @@ on:
         required: true
         type: choice
         options:
-          - full
           - suppressed
+          - full
           - prizes-claimed
 
 permissions:
