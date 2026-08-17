@@ -123,9 +123,12 @@
   }
 
   /* SCHEDULE */
+  #schedule .section-head{
+    text-align:left;
+  }
   .timeline{
     max-width:480px;
-    margin:0 auto;
+    margin:0;
   }
   .t-item{
     display:grid;
@@ -140,7 +143,7 @@
     font-size:20px;
     font-weight:600;
     color:var(--gold);
-    text-align:right;
+    text-align:left;
   }
   .t-what strong{
     display:block;
@@ -152,7 +155,18 @@
   }
   .t-what span{
     font-size:14px;
-    opacity:0.65;
+    color:rgba(35,42,47,0.65);
+  }
+  .t-what span a{
+    color:#8a6528;
+    font-weight:500;
+    text-decoration:underline;
+    text-decoration-color:rgba(138,101,40,0.45);
+    text-underline-offset:2px;
+    transition:text-decoration-color 0.2s ease;
+  }
+  .t-what span a:hover, .t-what span a:focus-visible{
+    text-decoration-color:#8a6528;
   }
 
   /* MENU */
@@ -224,8 +238,17 @@
     font-style:italic;
     font-weight:500;
     font-size:19px;
-    margin:0 0 10px;
+    margin:0 0 6px;
     color:var(--sage);
+  }
+  .drink-cat h3::after{
+    content:'';
+    display:block;
+    width:44px;
+    height:1px;
+    margin:8px auto 0;
+    background:linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity:0.7;
   }
   .drink-cat ul{
     list-style:none;
@@ -260,6 +283,39 @@
     margin:0 0 18px;
   }
   .game-copy p:last-child{ margin-bottom:0; }
+  .game-rules{
+    margin-top:32px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    text-align:center;
+  }
+  .game-rules h4{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:19px;
+    margin:0 0 6px;
+    color:var(--sage);
+  }
+  .game-rules h4::after{
+    content:'';
+    display:block;
+    width:44px;
+    height:1px;
+    margin:8px auto 14px;
+    background:linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity:0.7;
+  }
+  .game-rules ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-size:14px;
+    line-height:1.8;
+    opacity:0.75;
+  }
+  .game-rules li{ margin-bottom:6px; }
+  .game-rules li:last-child{ margin-bottom:0; }
   .photo-placeholder{
     width:140px;
     aspect-ratio:1;
@@ -275,6 +331,15 @@
     text-transform:uppercase;
     color:var(--sage);
     opacity:0.7;
+  }
+  .game-photo{
+    display:block;
+    width:100%;
+    aspect-ratio:16/10;
+    object-fit:cover;
+    border-radius:14px;
+    margin:0 auto 24px;
+    box-shadow:0 8px 20px rgba(35,42,47,0.14);
   }
 
   footer{
@@ -329,19 +394,27 @@
         </div>
         <div class="t-item">
           <div class="t-time">4:00</div>
-          <div class="t-what"><strong>Cocktail hour &amp; Group photos</strong><span>Check WithJoy for your scheduled photo time, or wait for the MC to call you out</span></div>
+          <div class="t-what"><strong>Cocktail hour &amp; Group photos</strong><span>Check <a href="https://withjoy.com/luna-and-marcus" target="_blank" rel="noopener">WithJoy</a> for your scheduled photo time, or wait for the MC to call you out</span></div>
         </div>
         <div class="t-item">
           <div class="t-time">5:30</div>
-          <div class="t-what"><strong>Guests seated for reception</strong></div>
+          <div class="t-what"><strong>Guests seated for reception</strong><span>Don't forget to sign our “guest book”, write us a note and pop it in the jar</span></div>
         </div>
         <div class="t-item">
           <div class="t-time">6:00</div>
           <div class="t-what"><strong>First dance</strong></div>
         </div>
         <div class="t-item">
-          <div class="t-time">7:15</div>
+          <div class="t-time">7:30</div>
           <div class="t-what"><strong>Speeches</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">7:55</div>
+          <div class="t-what"><strong>Scavenger Hunt</strong></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">8:35</div>
+          <div class="t-what"><strong>Bouquet Toss</strong><span>Kinda a bouquet, kinda a cabbage</span></div>
         </div>
         <div class="t-item">
           <div class="t-time">10:15</div>
@@ -439,35 +512,70 @@
       </div>
       <div class="drink-grid">
         <div class="drink-cat">
-          <h3>Wine</h3>
+          <h3>Sparkling</h3>
           <ul>
-            <li>Wine option one</li>
-            <li>Wine option two</li>
-            <li>Wine option three</li>
+            <li>Prosecco</li>
           </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>White Wine</h3>
+          <ul>
+            <li>Sauvignon Blanc</li>
+            <li>Moscato</li>
+          </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>Red Wine</h3>
+          <ul>
+            <li>Cabernet Sauvignon</li>
+            <li>Shiraz</li>
+          </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>Rosé</h3>
         </div>
         <div class="drink-cat">
           <h3>Beer</h3>
           <ul>
-            <li>Beer option one</li>
-            <li>Beer option two</li>
-            <li>Cider option</li>
+            <li>Kirin</li>
+            <li>Corona</li>
+            <li>Stone &amp; Wood</li>
           </ul>
         </div>
         <div class="drink-cat">
-          <h3>Soft</h3>
+          <h3>Soft Drink</h3>
           <ul>
-            <li>Soft drink one</li>
-            <li>Soft drink two</li>
-            <li>Water</li>
+            <li>Coke</li>
+            <li>Coke Zero</li>
+            <li>Sprite</li>
+            <li>Sprite Zero</li>
+            <li>Tonic Water</li>
+            <li>Soda Water</li>
+          </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>Juice</h3>
+          <ul>
+            <li>Orange Juice</li>
+            <li>Apple Juice</li>
+            <li>Cranberry Juice</li>
+          </ul>
+        </div>
+        <div class="drink-cat">
+          <h3>Cocktail</h3>
+          <ul>
+            <li>Baileys Cold Brew</li>
+            <li>Mimosa</li>
+            <li>Vodka Cranberry</li>
           </ul>
         </div>
         <div class="drink-cat">
           <h3>Spirits</h3>
           <ul>
-            <li>Spirit option one</li>
-            <li>Spirit option two</li>
-            <li>Spirit option three</li>
+            <li>Vodka</li>
+            <li>Gin</li>
+            <li>Rum</li>
+            <li>Baileys</li>
           </ul>
         </div>
       </div>
@@ -484,10 +592,19 @@
       </div>
       <div class="game-copy">
         <p>We've hidden 5 little white Mecca Chameleon characters around the estate. Keep your eyes peeled while you're enjoying drinks and canapés. Here's what you're looking for:</p>
-        <div class="photo-placeholder">Photo of the chameleon</div>
-        <p>Found one? Take a photo with it, then track down this person to show them and claim your spot:</p>
+        <img class="game-photo" src="images/cocktail-hour/MeccaChameleon.jfif" alt="Mecca Chameleon character" loading="lazy">
+        <p>Found one? Take a photo with it. Once you've found all 5, track down this person to show them and claim your loot:</p>
         <div class="photo-placeholder">Photo of [Name]</div>
-        <p>The first ten guests to find all 5 win a small prize. Happy hunting!</p>
+        <p>The first 5 guests to find them all win a small prize. Happy hunting!</p>
+        <div class="game-rules">
+          <h4>Ground Rules</h4>
+          <ul>
+            <li>They're hidden in plain sight. No need to climb, dig, or move furniture</li>
+            <li>Please don't force open doors, drawers, or anything closed</li>
+            <li>Look behind and around things, not under or inside anything fixed in place</li>
+            <li>Be gentle with the estate. We'd like our deposit back</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
