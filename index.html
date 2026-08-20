@@ -123,9 +123,6 @@
   }
 
   /* SCHEDULE */
-  #schedule .section-head{
-    text-align:left;
-  }
   .timeline{
     max-width:480px;
     margin:0;
@@ -316,11 +313,38 @@
   }
   .game-rules li{ margin-bottom:6px; }
   .game-rules li:last-child{ margin-bottom:0; }
-  .photo-placeholder{
-    width:140px;
-    aspect-ratio:1;
+  .game-photo{
+    display:block;
+    width:100%;
+    aspect-ratio:16/10;
+    object-fit:cover;
+    border-radius:14px;
     margin:0 auto 24px;
-    border:1px dashed var(--line);
+    box-shadow:0 8px 20px rgba(35,42,47,0.14);
+  }
+  .spoiler{
+    position:relative;
+    margin:0 auto 24px;
+    cursor:pointer;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(35,42,47,0.14);
+  }
+  .spoiler .person-photo{
+    margin:0;
+    border-radius:0;
+    box-shadow:none;
+    filter:blur(48px);
+    transform:scale(1.2);
+    transition:filter 0.3s ease, transform 0.3s ease;
+  }
+  .spoiler.revealed .person-photo{
+    filter:none;
+    transform:none;
+  }
+  .spoiler-label{
+    position:absolute;
+    inset:0;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -329,16 +353,21 @@
     font-size:11px;
     letter-spacing:0.08em;
     text-transform:uppercase;
-    color:var(--sage);
-    opacity:0.7;
+    color:#fff;
+    background:rgba(35,42,47,0.28);
+    border-radius:14px;
+    transition:opacity 0.3s ease;
   }
-  .game-photo{
+  .spoiler.revealed .spoiler-label{
+    opacity:0;
+    pointer-events:none;
+  }
+  .person-photo{
     display:block;
     width:100%;
-    aspect-ratio:16/10;
+    aspect-ratio:1;
     object-fit:cover;
     border-radius:14px;
-    margin:0 auto 24px;
     box-shadow:0 8px 20px rgba(35,42,47,0.14);
   }
 
@@ -594,7 +623,10 @@
         <p>We've hidden 5 little white Meccha Chameleon characters around the estate. Keep your eyes peeled while you're enjoying drinks and canapés. Here's what you're looking for:</p>
         <img class="game-photo" src="images/cocktail-hour/MecchaChameleon.jfif" alt="Meccha Chameleon character" loading="lazy">
         <p>Found one? Take a photo next to it. Once you've found all 5, track down this person to show them and claim your loot:</p>
-        <div class="photo-placeholder">Photo of [Name]</div>
+        <div class="spoiler" role="button" tabindex="0" aria-label="Tap to reveal photo">
+          <img class="person-photo" src="images/cocktail-hour/Gemini_Darren.jfif" alt="Darren" loading="lazy">
+          <div class="spoiler-label">Tap to reveal</div>
+        </div>
         <p>The first 5 guests to find them all win a small prize. Happy hunting!</p>
         <div class="game-rules">
           <h4>Ground Rules</h4>
@@ -624,6 +656,14 @@
       a.addEventListener('click', function(e){
         e.preventDefault();
         showTab(a.dataset.tab, true);
+      });
+    });
+
+    document.querySelectorAll('.spoiler').forEach(function(el){
+      function reveal(){ el.classList.add('revealed'); }
+      el.addEventListener('click', reveal);
+      el.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); reveal(); }
       });
     });
 
